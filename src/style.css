@@ -1,0 +1,11 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow: auto !important;
+}
+.form-hide {
+  display: none;
+}
