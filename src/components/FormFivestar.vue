@@ -54,6 +54,7 @@ function changeForm(childrens, index) {
 <template>
   <div
     @click="changeForm(block.childrens, index);"
+    :class="{ 'form-hide need-toggle-hide': block.hide }"
   >
     <h5 class="text-xl font-bold mb-3">
       {{ block.text }}

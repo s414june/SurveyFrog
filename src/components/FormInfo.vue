@@ -24,8 +24,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <div
-  >
+  <div :class="{ 'form-hide need-toggle-hide': block.hide }">
     <h5 class="text-xl font-bold mb-3">
       {{ block.text }}
     </h5>

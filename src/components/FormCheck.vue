@@ -48,7 +48,7 @@ const defaultChildren = [{
 let options = blockProps.block.options.length > 0 ? blockProps.block.options : defaultChildren;
 </script>
 <template>
-  <div>
+  <div :class="{ 'form-hide need-toggle-hide': block.hide }">
     <h5 class="text-xl font-bold mb-3">
       {{ block.text }}
       <span class="text-red-500" v-if="block.required">*</span>

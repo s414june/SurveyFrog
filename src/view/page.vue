@@ -36,38 +36,38 @@ const _toggleChildren = (childrens, index) => {
   if (childrens.length <= 0) return;
   pages[index].blocks.forEach((block) => {
     childrens.forEach((children) => {
-      if (block.id === children.id) {
+      if (block.id === children.id &&  block.hide != children.hide) {
         block.hide = children.hide;
       }
     });
   });
-  // children.hide
-  //   ? childrenRef.el.classList.add("form-hide")
-  //   : childrenRef.el.classList.remove("form-hide");
-};
-onMounted(() => {
-  isMounted = true;
-  let nowPath = router.currentRoute.value.params.id;
-  store.state.pageNum = parseInt(nowPath.toString());
-});
-watch(
-  () => route.path,
-  (path) => {
-    if (!router.currentRoute.value.params.id) return;
+    // children.hide
+    //   ? childrenRef.el.classList.add("form-hide")
+    //   : childrenRef.el.classList.remove("form-hide");
+  };
+  onMounted(() => {
+    isMounted = true;
     let nowPath = router.currentRoute.value.params.id;
     store.state.pageNum = parseInt(nowPath.toString());
+  });
+  watch(
+    () => route.path,
+    (path) => {
+      if (!router.currentRoute.value.params.id) return;
+      let nowPath = router.currentRoute.value.params.id;
+      store.state.pageNum = parseInt(nowPath.toString());
+    }
+  );
+  function submit() {
+    store.commit("pushPage", { router: router, num: 1, force: true });
   }
-);
-function submit() {
-  store.commit("pushPage", { router: router, num: 1, force: true });
-}
-const _countProgress = () => {
-  let blocks = store.state.pages.map(page => page.blocks);
-  let flatBlocks = [].concat.apply([], blocks);
-  let total = flatBlocks.filter(page => page["hide"] === false).length;
-  let completed = flatBlocks.filter(page => page["hide"] === false && page["completed"] === true).length;
-  store.state.progress = ((completed / total) * 100).toFixed(1);
-}
+  const _countProgress = () => {
+    let blocks = store.state.pages.map(page => page.blocks);
+    let flatBlocks = [].concat.apply([], blocks);
+    let total = flatBlocks.filter(page => page["hide"] === false).length;
+    let completed = flatBlocks.filter(page => page["hide"] === false && page["completed"] === true).length;
+    store.state.progress = ((completed / total) * 100).toFixed(1);
+  }
 </script>
 <template>
   <TransitionGroup tag="Card">
@@ -78,9 +78,8 @@ const _countProgress = () => {
             class="text-3xl font-bold before:block before:absolute before:w-2 before:h-10 before:left-0 before:bg-cyan-500">
             {{ page.title }}
           </h2>
-          <div v-for="block in page.blocks" class="my-4 question"
-            :ref="(el) => setBlockRefs(el as HTMLElement, index, block.id, '')"
-            :class="{ 'form-hide need-toggle-hide': block.hide }">
+          <div v-for="block, bIndex in page.blocks" class="my-4 question"
+            :ref="(el) => setBlockRefs(el as HTMLElement, index, block.id, '')" :key="bIndex">
             <component :is="getFormComponent(block.component)" :block="block" :index="index"
               @toggleChildren="_toggleChildren" @countProgress="_countProgress">
             </component>
