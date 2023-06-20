@@ -70,9 +70,9 @@ const _toggleChildren = (childrens, index) => {
   }
 </script>
 <template>
-  <TransitionGroup tag="Card">
+  <TransitionGroup tag="Card" class="w-full">
     <Card v-for="(page, index) in pages" v-show="store.state.pageNum == index + 1" :key="index">
-      <form>
+      <form class="w-full">
         <div class="mb-5">
           <h2
             class="text-3xl font-bold before:block before:absolute before:w-2 before:h-10 before:left-0 before:bg-cyan-500">

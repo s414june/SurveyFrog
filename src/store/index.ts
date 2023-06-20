@@ -81,12 +81,12 @@ const pages = [
                 options: [
                     {
                         element: "option",
-                        text: "男廁",
+                        text: "蝌蚪區",
                         value: "1",
                     },
                     {
                         element: "option",
-                        text: "女廁",
+                        text: "成蛙區",
                         value: "2",
                     },
                 ],
